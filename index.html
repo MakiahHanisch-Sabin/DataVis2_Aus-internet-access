@@ -33,6 +33,51 @@
     .chart .vega-embed, .chart .vega-embed > div, .chart svg, .chart canvas { width:100% !important; max-width:100% !important; }
     .chart svg { height:auto !important; }
     .note { font-size:.88rem; line-height:1.45; margin:8px 2px 0; }
+    .insight-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 430px;
+  background:
+    linear-gradient(135deg, rgba(47,111,159,.08), rgba(255,159,28,.08)),
+    rgba(255,255,255,.94);
+}
+
+.insight-card h3 {
+  margin: 0 0 18px;
+  font-size: 1.25rem;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.insight-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.insight-item {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.insight-number {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+}
+
+.insight-item p {
+  margin: 0;
+  font-size: .95rem;
+  line-height: 1.55;
+}
     footer { border-top:1px solid var(--line); margin-top:40px; padding:28px 0 50px; font-size:.9rem; color:var(--muted); }
     .source-list { columns:2; padding-left:18px; }
     @media (max-width:900px) { header { grid-template-columns:1fr; padding-top:34px; } .grid { grid-template-columns:1fr; } .chart { min-height:320px; } .card.wide .chart { min-height:360px; } .source-list { columns:1; } }
@@ -61,6 +106,29 @@
       <article class="card"><div id="02_ready_vs_activated" class="chart"></div><p class="note">A sizeable number of premises have inactive connections to the NBN, waiting to be activated.</p></article>
       <article class="card"><div id="04_technology_mix" class="chart"></div><p class="note">While fixed line connections are obviously important, other connection types such as wireless and satellite are incredibly important for non-eastern states with higher remote populations.</p></article>
       <article class="card"><div id="05_scale_scatter" class="chart"></div><p class="note">The larger the state, the more inactive connections waiting to be used. More population = more services.</p></article>
+      <article class="card insight-card">
+  <h3>What this section shows</h3>
+
+  <div class="insight-grid">
+    <div class="insight-item">
+      <span class="insight-number">1</span>
+      <p><strong>Access is widespread, but take-up varies.</strong><br>
+      Some states have a larger gap between ready-to-connect and activated premises.</p>
+    </div>
+
+    <div class="insight-item">
+      <span class="insight-number">2</span>
+      <p><strong>Technology mix changes by geography.</strong><br>
+      Fixed line dominates overall, but wireless and satellite matter more in remote areas.</p>
+    </div>
+
+    <div class="insight-item">
+      <span class="insight-number">3</span>
+      <p><strong>Bigger states dominate the totals.</strong><br>
+      NSW, Victoria and Queensland have the largest absolute number of ready and activated premises.</p>
+    </div>
+  </div>
+</article>
     </div>
   </section>
   <section>
