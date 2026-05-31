@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australia’s Internet Reliance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    :root { --ink:#12212f; --muted:#5d6d7e; --paper:#f7fafc; --card:#ffffff; --blue:#2f6f9f; --orange:#ff9f1c; --line:#dce8f2; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter, Arial, sans-serif; color:var(--ink); background:linear-gradient(180deg,#edf6fb 0%,#f7fafc 38%,#ffffff 100%); }
+    header { max-width:1380px; margin:0 auto; padding:48px 18px 24px; display:grid; grid-template-columns:1.35fr .65fr; gap:20px; align-items:end; }
+    h1 { font-size:clamp(2.4rem,6vw,5rem); line-height:.95; margin:0 0 18px; letter-spacing:-.06em; }
+    h2 { font-size:1.55rem; margin:0 0 10px; letter-spacing:-.02em; }
+    p { line-height:1.6; color:var(--muted); }
+    .lede { font-size:1.15rem; max-width:760px; }
+    .badge { background:var(--card); border-left:6px solid var(--orange); padding:16px 18px; border-radius:16px; box-shadow:0 12px 30px rgba(18,33,47,.08); }
+    main { max-width:1380px; margin:0 auto; padding:6px 18px 42px; }
+    section { margin:22px 0; }
+    .section-title { display:flex; align-items:center; gap:10px; margin:18px 0 10px; }
+    .section-title span { width:34px; height:34px; display:grid; place-items:center; border-radius:50%; background:var(--blue); color:white; font-weight:800; flex:0 0 auto; }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; align-items:stretch; }
+    .wide { grid-column:1 / -1; }
+    .card { background:rgba(255,255,255,.94); border:1px solid #e5eef5; border-radius:18px; padding:12px 14px; box-shadow:0 8px 22px rgba(18,33,47,.055); }
+    .grid, .card, .chart { min-width:0; }
+    .chart { width:100%; overflow:hidden; min-height:360px; }
+    .card.wide .chart { min-height:430px; }
+    .chart .vega-embed, .chart .vega-embed > div, .chart svg, .chart canvas { width:100% !important; max-width:100% !important; }
+    .chart svg { height:auto !important; }
+    .note { font-size:.88rem; line-height:1.45; margin:8px 2px 0; }
+    footer { border-top:1px solid var(--line); margin-top:40px; padding:28px 0 50px; font-size:.9rem; color:var(--muted); }
+    .source-list { columns:2; padding-left:18px; }
+    @media (max-width:900px) { header { grid-template-columns:1fr; padding-top:34px; } .grid { grid-template-columns:1fr; } .chart { min-height:320px; } .card.wide .chart { min-height:360px; } .source-list { columns:1; } }
+  </style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Australia’s Internet Reliance</h1>
+    <p class="lede">A visual story about where the NBN is ready, where it is actually being used, and why fixed-line broadband still carries the weight of Australia’s online life.</p>
+  </div>
+  <aside class="badge">
+    <strong>Audience:</strong> Everyday Australians comparing broadband access and performance.<br><br>
+    <strong>Key Questions:</strong> Is NBN Reliable? Fast? Convenient? Accessible?
+  </aside>
+</header>
+<main>
+  <section class="card wide">
+    <h2>Why does access to the internet matter?</h2>
+    <p>Internet access is now considered essential for study, work, entertainment and public services, as well as much, much more. The charts below combine national download-volume data, measured nbn plan speeds, and state-level network premises data to tell a simple story: Australia has built broad broadband reach, but the lived experience depends on take-up, technology mix and plan speed.</p>
+  </section>
+  <section>
+    <div class="section-title"><span>1</span><h2>Access: Ready does not always mean Active!</h2></div>
+    <div class="grid">
+      <article class="card wide"><div id="01_activation_map" class="chart"></div><p class="note">While many NBN services are available around the country, not all of them are activated regardless of if they're ready to connect.</p></article>
+      <article class="card"><div id="02_ready_vs_activated" class="chart"></div><p class="note">A sizeable number of premises have inactive connections to the NBN, waiting to be activated.</p></article>
+      <article class="card"><div id="04_technology_mix" class="chart"></div><p class="note">While fixed line connections are obviously important, other connection types such as wireless and satellite are incredibly important for non-eastern states with higher remote populations.</p></article>
+      <article class="card"><div id="05_scale_scatter" class="chart"></div><p class="note">The larger the state, the more inactive connections waiting to be used. More population = more services.</p></article>
+    </div>
+  </section>
+  <section>
+    <div class="section-title"><span>2</span><h2>Performance: Do NBN plans meet their advertised speeds?</h2></div>
+    <div class="grid">
+      <article class="card"><div id="06_speed_grouped" class="chart"></div><p class="note">Once connected, plan speed becomes the everyday experience. Measured speeds cluster close to plan labels, showing many plans meet their targets.</p></article>
+      <article class="card"><div id="07_speed_slope" class="chart"></div><p class="note">These lines are nearly perfectly straight because measured plan speeds have remained consistent between the years.</p></article>
+      <article class="card"><div id="08_plan_bullet" class="chart"></div><p class="note">The pale bars show advertised plan labels; the coloured bars show the ACTUAL measured 2022 speed for each plan. The faster the plan, the bigger the relative gap. For the most part, average speeds match their advertised plan speeds.</p></article>
+    </div>
+  </section>
+  <section>
+    <div class="section-title"><span>3</span><h2>Demand: Australians keep downloading more</h2></div>
+    <div class="grid">
+      <article class="card"><div id="09_download_total_line" class="chart"></div><p class="note">Demand kept climbing: total downloads rose from 3.0 million TB to 3.8 million TB across one year. More and more people are using the internet every day.</p></article>
+      <article class="card"><div id="10_download_area" class="chart"></div><p class="note">Despite mobile and wireless growth, fixed line connections carried the overwhelming majority of download volume and continues to do so.</p></article>
+      <article class="card"><div id="11_download_growth_index" class="chart"></div><p class="note">While wireless data usage has grown, it remains a small fraction of total data usage compared to fixed line.</p></article>
+      <article class="card"><div id="12_jun2018_share_donut" class="chart"></div><p class="note">Majority of Australians' used fixed line connections for downloads, likely due to the differences in speed and also reliability.</p></article>
+    </div>
+  </section>
+  <footer>
+    <strong>Data and authorship.</strong> Created by Makiah Hanisch-Sabin, May 2026. Data sources: ABS Internet Activity Australia June 2018; ACCC/SamKnows Measuring Broadband Australia speed data; nbn Network Premises Report January 2025.
+    <ul class="source-list">
+      <li>AI was used for debugging as well as assisting in the layout of elements on the webpage.</li>
+    </ul>
+  </footer>
+</main>
+<script>
+const specs = [
+  "01_activation_map",
+  "02_ready_vs_activated",
+  "04_technology_mix",
+  "05_scale_scatter",
+  "06_speed_grouped",
+  "07_speed_slope",
+  "08_plan_bullet",
+  "09_download_total_line",
+  "10_download_area",
+  "11_download_growth_index",
+  "12_jun2018_share_donut"
+];
+
+const chartHeights = {
+  "01_activation_map": 430,
+  "05_scale_scatter": 380,
+  "12_jun2018_share_donut": 360
+};
+
+function makeResponsive(spec, name) {
+  const responsiveSpec = structuredClone(spec);
+  responsiveSpec.width = "container";
+  responsiveSpec.height = chartHeights[name] || 360;
+  responsiveSpec.autosize = { type: "fit", contains: "padding", resize: true };
+  if (responsiveSpec.layer) {
+    responsiveSpec.layer = responsiveSpec.layer.map(layer => {
+      const updatedLayer = { ...layer };
+      delete updatedLayer.width;
+      delete updatedLayer.height;
+      return updatedLayer;
+    });
+  }
+  return responsiveSpec;
+}
+
+specs.forEach(name => {
+  fetch(`./specs/${name}.json`)
+    .then(response => {
+      if (!response.ok) throw new Error(`Could not load ./specs/${name}.json`);
+      return response.json();
+    })
+    .then(spec => {
+      // Find the HTML element directly by its ID string
+      const container = document.getElementById(name);
+      // Pass the actual DOM element to vegaEmbed instead of a '#' selector string
+      return vegaEmbed(container, makeResponsive(spec, name), { actions:false, renderer:"svg" });
+    })
+    .catch(error => {
+      console.error(`Error rendering ${name}:`, error);
+      const element = document.getElementById(name);
+      if (element) element.innerHTML = `<p style="color:#b00020;font-size:0.9rem;">Chart failed to load: ${name}</p>`;
+    });
+});
+</script>
+</body>
+</html>

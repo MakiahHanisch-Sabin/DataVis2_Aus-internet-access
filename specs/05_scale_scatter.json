@@ -1,0 +1,169 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Active vs Ready by state and technology type",
+  "width": "container",
+  "height": 380,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#12212f",
+      "offset": 12
+    },
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#435466",
+      "gridColor": "#e8eff5",
+      "domainColor": "#cbd9e5",
+      "tickColor": "#cbd9e5"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#12212f",
+      "orient": "right"
+    },
+    "range": {
+      "category": [
+        "#2F6F9F",
+        "#FF9F1C",
+        "#2CA58D",
+        "#8E6CBB",
+        "#E45756",
+        "#54A24B",
+        "#B279A2",
+        "#F58518"
+      ]
+    },
+    "bar": {
+      "cornerRadiusEnd": 4
+    },
+    "line": {
+      "strokeWidth": 3
+    },
+    "circle": {
+      "opacity": 0.85
+    }
+  },
+  "data": {
+    "url": "./data/nbn_state_jan2025.csv"
+  },
+  "mark": {
+    "type": "circle",
+    "opacity": 0.8,
+    "stroke": "white",
+    "strokeWidth": 1
+  },
+  "encoding": {
+    "x": {
+      "field": "total_ready",
+      "type": "quantitative",
+      "title": "Ready to connect",
+      "axis": {
+        "format": "~s"
+      },
+      "scale": {
+        "domainMin": 0
+      }
+    },
+    "y": {
+      "field": "total_activated",
+      "type": "quantitative",
+      "title": "Activated",
+      "axis": {
+        "format": "~s"
+      },
+      "scale": {
+        "domainMin": 0
+      }
+    },
+    "size": {
+      "field": "satellite_ready",
+      "type": "quantitative",
+      "title": "Satellite-ready premises",
+      "scale": {
+        "range": [
+          80,
+          850
+        ]
+      }
+    },
+    "color": {
+  "field": "state",
+  "type": "nominal",
+  "title": "State",
+  "scale": {
+    "domain": [
+      "ACT",
+      "NSW",
+      "NT",
+      "QLD",
+      "SA",
+      "TAS",
+      "VIC",
+      "WA"
+    ],
+    "range": [
+      "#2F6F9F",
+      "#FF9F1C",
+      "#2CA58D",
+      "#8E6CBB",
+      "#E45756",
+      "#54A24B",
+      "#B279A2",
+      "#F58518"
+    ]
+  }
+},
+
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "total_ready",
+        "type": "quantitative",
+        "format": ",",
+        "title": "Ready"
+      },
+      {
+        "field": "total_activated",
+        "type": "quantitative",
+        "format": ",",
+        "title": "Activated"
+      },
+      {
+        "field": "satellite_ready",
+        "type": "quantitative",
+        "format": ",",
+        "title": "Satellite-ready"
+      },
+      {
+        "field": "activation_rate",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "Activated (%)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Wireless data grew faster, but from a much smaller base",
+  "width": "container",
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#12212f",
+      "offset": 12
+    },
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#435466",
+      "gridColor": "#e8eff5",
+      "domainColor": "#cbd9e5",
+      "tickColor": "#cbd9e5"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#12212f",
+      "orient": "right"
+    },
+    "range": {
+      "category": [
+        "#2F6F9F",
+        "#FF9F1C",
+        "#2CA58D",
+        "#8E6CBB",
+        "#E45756",
+        "#54A24B",
+        "#B279A2",
+        "#F58518"
+      ]
+    },
+    "bar": {
+      "cornerRadiusEnd": 4
+    },
+    "line": {
+      "strokeWidth": 3
+    },
+    "circle": {
+      "opacity": 0.85
+    }
+  },
+  "data": {
+    "url": "./data/download_tb_long.csv"
+  },
+  "transform": [
+    {
+      "filter": "datum.Connection != 'Total'"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "min",
+          "field": "Terabytes",
+          "as": "Base"
+        }
+      ],
+      "groupby": [
+        "Connection"
+      ]
+    },
+    {
+      "calculate": "datum.Terabytes / datum.Base * 100",
+      "as": "Index"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {
+      "filled": true,
+      "size": 85
+    },
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "PeriodDate",
+      "type": "temporal",
+      "title": "Period"
+    },
+    "y": {
+      "field": "Index",
+      "type": "quantitative",
+      "title": "Index (Jun 2017 = 100)",
+      "scale": {
+        "domainMin": 0
+      }
+    },
+    "color": {
+      "field": "Connection",
+      "type": "nominal",
+      "title": "Connection",
+      "scale": {
+        "range": [
+          "#2F6F9F",
+          "#FF9F1C"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Period"
+      },
+      {
+        "field": "Connection"
+      },
+      {
+        "field": "Index",
+        "type": "quantitative",
+        "format": ".1f",
+        "title": "Index"
+      }
+    ]
+  }
+}

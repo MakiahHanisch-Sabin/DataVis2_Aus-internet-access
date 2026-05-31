@@ -1,0 +1,120 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Measured download speeds by nbn plan",
+  "width": "container",
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#12212f",
+      "offset": 12
+    },
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#435466",
+      "gridColor": "#e8eff5",
+      "domainColor": "#cbd9e5",
+      "tickColor": "#cbd9e5"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#12212f",
+      "orient": "right"
+    },
+    "range": {
+      "category": [
+        "#2F6F9F",
+        "#FF9F1C",
+        "#2CA58D",
+        "#8E6CBB",
+        "#E45756",
+        "#54A24B",
+        "#B279A2",
+        "#F58518"
+      ]
+    },
+    "bar": {
+      "cornerRadiusEnd": 4
+    },
+    "line": {
+      "strokeWidth": 3
+    },
+    "circle": {
+      "opacity": 0.85
+    }
+  },
+  "data": {
+    "url": "./data/speed_by_plan_long.csv"
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Plan",
+      "type": "nominal",
+      "title": "Plan",
+      "sort": [
+        "NBN 25",
+        "NBN 50",
+        "NBN 100",
+        "NBN 500",
+        "NBN 750"
+      ]
+    },
+    "xOffset": {
+      "field": "Year"
+    },
+    "y": {
+      "field": "Measured_Mbps",
+      "type": "quantitative",
+      "title": "Measured Mbps",
+      "scale": {
+        "domainMin": 0
+      }
+    },
+    "color": {
+      "field": "Year",
+      "type": "nominal",
+      "title": "Year",
+      "scale": {
+        "range": [
+          "#9ecae1",
+          "#2F6F9F"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Plan"
+      },
+      {
+        "field": "Year"
+      },
+      {
+        "field": "Measured_Mbps",
+        "type": "quantitative",
+        "title": "Measured Mbps"
+      }
+    ]
+  }
+}

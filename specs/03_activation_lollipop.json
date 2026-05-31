@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Activation rate by state and territory",
+  "width": "container",
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#12212f",
+      "offset": 12
+    },
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#435466",
+      "gridColor": "#e8eff5",
+      "domainColor": "#cbd9e5",
+      "tickColor": "#cbd9e5"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#12212f",
+      "orient": "right"
+    },
+    "range": {
+      "category": [
+        "#2F6F9F",
+        "#FF9F1C",
+        "#2CA58D",
+        "#8E6CBB",
+        "#E45756",
+        "#54A24B",
+        "#B279A2",
+        "#F58518"
+      ]
+    },
+    "bar": {
+      "cornerRadiusEnd": 4
+    },
+    "line": {
+      "strokeWidth": 3
+    },
+    "circle": {
+      "opacity": 0.85
+    }
+  },
+  "data": {
+    "url": "./data/nbn_state_jan2025.csv"
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 4,
+        "color": "#b9d2e7"
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "State"
+        },
+        "x": {
+          "datum": 0,
+          "type": "quantitative",
+          "title": "Activated (%)",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ]
+          }
+        },
+        "x2": {
+          "field": "activation_rate"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 170,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": "-x",
+          "title": "State"
+        },
+        "x": {
+          "field": "activation_rate",
+          "type": "quantitative",
+          "title": "Activated (%)",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ]
+          }
+        },
+        "color": {
+          "field": "activation_rate",
+          "type": "quantitative",
+          "title": "Activated (%)",
+          "scale": {
+            "scheme": "blues",
+            "domain": [
+              0,
+              100
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "activation_rate",
+            "type": "quantitative",
+            "title": "Activated (%)",
+            "format": ".1f"
+          },
+          {
+            "field": "total_ready",
+            "type": "quantitative",
+            "format": ",",
+            "title": "Ready"
+          },
+          {
+            "field": "total_activated",
+            "type": "quantitative",
+            "format": ",",
+            "title": "Activated"
+          }
+        ]
+      }
+    }
+  ]
+}

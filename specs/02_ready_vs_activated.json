@@ -1,0 +1,131 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Ready-to-connect premises: Active vs Ready",
+  "width": "container",
+  "height": 360,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding",
+    "resize": true
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontSize": 16,
+      "fontWeight": 700,
+      "anchor": "start",
+      "color": "#12212f",
+      "offset": 12
+    },
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#435466",
+      "gridColor": "#e8eff5",
+      "domainColor": "#cbd9e5",
+      "tickColor": "#cbd9e5"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelFontSize": 12,
+      "titleFontSize": 12,
+      "labelColor": "#435466",
+      "titleColor": "#12212f",
+      "orient": "right"
+    },
+    "range": {
+      "category": [
+        "#2F6F9F",
+        "#FF9F1C",
+        "#2CA58D",
+        "#8E6CBB",
+        "#E45756",
+        "#54A24B",
+        "#B279A2",
+        "#F58518"
+      ]
+    },
+    "bar": {
+      "cornerRadiusEnd": 4
+    },
+    "line": {
+      "strokeWidth": 3
+    },
+    "circle": {
+      "opacity": 0.85
+    }
+  },
+  "data": {
+    "url": "./data/nbn_state_jan2025.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "total_activated",
+        "not_activated"
+      ],
+      "as": [
+        "Status",
+        "Premises"
+      ]
+    },
+    {
+      "calculate": "datum.Status == 'total_activated' ? 'Activated' : 'Ready but not active'",
+      "as": "StatusLabel"
+    }
+  ],
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "state",
+      "type": "nominal",
+      "title": "State",
+      "sort": "-y"
+    },
+    "y": {
+      "field": "Premises",
+      "type": "quantitative",
+      "stack": "normalize",
+      "axis": {
+        "format": "%"
+      },
+      "title": "Share of ready premises"
+    },
+    "color": {
+      "field": "StatusLabel",
+      "type": "nominal",
+      "title": "Status",
+      "scale": {
+        "range": [
+          "#2F6F9F",
+          "#D9E9F5"
+        ]
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "title": "State"
+      },
+      {
+        "field": "StatusLabel",
+        "title": "Status"
+      },
+      {
+        "field": "Premises",
+        "type": "quantitative",
+        "format": ",",
+        "title": "Premises"
+      }
+    ]
+  }
+}
